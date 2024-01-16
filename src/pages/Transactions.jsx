@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   Box,
   Button,
@@ -37,8 +38,21 @@ const Transactions = () => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
   };
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const response = await axios.post(
+        "http://localhost:5000/api/v1/project-lauqui/transactions",
+        data,
+        { withCredentials: true }
+      );
+      setData(customersData);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
-    <Box component={"form"} autoComplete="off">
+    <Box component={"form"} onSubmit={handleSubmit} autoComplete="off">
       <Stack direction={"row-reverse"} mb={2}>
         <TextField
           label="ATW"
