@@ -12,10 +12,14 @@ import { useState } from "react";
 import useBuyerContext from "../hooks/useBuyerContext";
 import useTruckerContext from "../hooks/useTruckerContext";
 import useTruckContext from "../hooks/useTruckContext";
+import useDriverContext from "../hooks/useDriverContext";
+import useTankContext from "../hooks/useTankContext";
 const Transactions = () => {
   const buyers = useBuyerContext();
   const truckers = useTruckerContext();
   const trucks = useTruckContext();
+  const drivers = useDriverContext();
+  const tanks = useTankContext();
   const customersData = {
     atw: "",
     buyer: "",
@@ -132,7 +136,13 @@ const Transactions = () => {
             onChange={handleChange}
             required={true}
           >
-            <MenuItem></MenuItem>
+            {drivers?.map((driver) => {
+              return (
+                <MenuItem value={driver.fullname} key={driver._id}>
+                  {driver.fullname}
+                </MenuItem>
+              );
+            })}
           </Select>
         </FormControl>
       </Stack>
@@ -149,7 +159,13 @@ const Transactions = () => {
             onChange={handleChange}
             required={true}
           >
-            <MenuItem></MenuItem>
+            {tanks?.map((tank) => {
+              return (
+                <MenuItem value={tank.tankName} key={tank._id}>
+                  {tank.tankLocation} - {tank.tankName}
+                </MenuItem>
+              );
+            })}
           </Select>
         </FormControl>
 
